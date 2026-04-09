@@ -7,6 +7,7 @@ import MapsSection from '@/components/invitation/MapsSection';
 import GuestBook from '@/components/invitation/GuestBook';
 import BaliDivider from '@/components/invitation/BaliDivider';
 import AnimateOnScroll from '@/components/invitation/AnimateOnScroll';
+import GalleryLightbox from '@/components/invitation/GalleryLightbox';
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -225,13 +226,7 @@ export default async function InvitationPage(props: PageProps) {
               <AnimateOnScroll direction="up">
                 <h2 className="text-3xl md:text-4xl font-playfair text-[var(--color-gold)] mb-12 text-center">Our Gallery</h2>
               </AnimateOnScroll>
-              <div className="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4">
-                {galleryImages.map((img, i) => (
-                  <AnimateOnScroll key={img.id} direction="up" delay={i * 0.1} className="break-inside-avoid rounded-xl overflow-hidden shadow-md group">
-                    <img src={img.url} alt="Gallery item" className="w-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                  </AnimateOnScroll>
-                ))}
-              </div>
+              <GalleryLightbox images={galleryImages} />
             </section>
           </>
         )}

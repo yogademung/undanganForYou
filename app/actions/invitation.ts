@@ -7,6 +7,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { writeFile, mkdir } from 'fs/promises';
 import { join } from 'path';
+import sharp from 'sharp';
 
 async function checkAuth() {
   const session = await getServerSession(authOptions);
@@ -26,6 +27,7 @@ async function processFormData(formData: FormData) {
 
   const musicFile = formData.get('musicFile') as File | null;
   if (musicFile && musicFile.size > 0 && musicFile.name) {
+    if (musicFile.size > 15 * 1024 * 1024) throw new Error("Ukuran file musik terlalu besar (Maks 15MB)");
     try {
       const bytes = await musicFile.arrayBuffer();
       const buffer = Buffer.from(bytes);
@@ -48,6 +50,7 @@ async function processFormData(formData: FormData) {
 
   const coverFile = formData.get('coverFile') as File | null;
   if (coverFile && coverFile.size > 0 && coverFile.name) {
+    if (coverFile.size > 5 * 1024 * 1024) throw new Error("Ukuran file gambar cover terlalu besar (Maks 5MB)");
     try {
       const bytes = await coverFile.arrayBuffer();
       const buffer = Buffer.from(bytes);
@@ -55,11 +58,16 @@ async function processFormData(formData: FormData) {
       const uploadDir = join(process.cwd(), 'public', 'uploads', 'images');
       await mkdir(uploadDir, { recursive: true });
 
-      const safeName = coverFile.name.replace(/[^a-zA-Z0-9.\-_]/g, '');
-      const fileName = `${Date.now()}-${Math.floor(Math.random()*1000)}-${safeName}`;
+      const safeName = coverFile.name.replace(/[^a-zA-Z0-9.\-_]/g, '').replace(/\.[^/.]+$/, "");
+      const fileName = `${Date.now()}-${Math.floor(Math.random()*1000)}-${safeName}.webp`;
       const filePath = join(uploadDir, fileName);
       
-      await writeFile(filePath, buffer);
+      const optimizedBuffer = await sharp(buffer)
+        .resize({ width: 1080, withoutEnlargement: true })
+        .webp({ quality: 80 })
+        .toBuffer();
+      
+      await writeFile(filePath, optimizedBuffer);
       finalCoverUrl = `/uploads/images/${fileName}`;
     } catch(err) {
       console.error("Cover image upload failed", err);
@@ -102,32 +110,70 @@ async function processFormData(formData: FormData) {
 }
 
 export async function createInvitation(formData: FormData) {
-  await checkAuth();
+  let success = false;
+  try {
+    await checkAuth();
 
-  const data = await processFormData(formData);
+    const data = await processFormData(formData);
 
-  await prisma.invitation.create({
-    data
-  });
+    const existingSlug = await prisma.invitation.findUnique({
+      where: { slug: data.slug }
+    });
 
-  revalidatePath('/admin/dashboard');
-  redirect('/admin/dashboard');
+    if (existingSlug) {
+      return { error: 'Slug (URL unik) tersebut sudah digunakan oleh undangan lain. Silakan ubah slug-nya.' };
+    }
+
+    await prisma.invitation.create({
+      data
+    });
+    
+    success = true;
+  } catch (err: any) {
+    return { error: err.message || "Terjadi kesalahan saat menyimpan undangan baru." };
+  }
+
+  if (success) {
+    revalidatePath('/admin/dashboard');
+    redirect('/admin/dashboard');
+  }
 }
 
 export async function updateInvitation(formData: FormData) {
-  await checkAuth();
+  let success = false;
+  let finalSlug = '';
+  try {
+    await checkAuth();
 
-  const id = formData.get('id') as string;
-  if (!id) throw new Error("Missing ID for update");
+    const id = formData.get('id') as string;
+    if (!id) throw new Error("Missing ID for update");
 
-  const data = await processFormData(formData);
+    const data = await processFormData(formData);
+    finalSlug = data.slug;
 
-  await prisma.invitation.update({
-    where: { id },
-    data
-  });
+    // Check slug uniqueness if it changed
+    const existingSlug = await prisma.invitation.findFirst({
+      where: { slug: data.slug, id: { not: id } }
+    });
 
-  revalidatePath('/admin/dashboard');
-  revalidatePath(`/${data.slug}`);
-  redirect('/admin/dashboard');
+    if (existingSlug) {
+      return { error: 'Slug (URL unik) tersebut sudah digunakan oleh undangan lain. Silakan ubah slug-nya.' };
+    }
+
+    await prisma.invitation.update({
+      where: { id },
+      data
+    });
+    
+    success = true;
+  } catch (err: any) {
+    console.error("Update Invitation Error: ", err);
+    return { error: err.stack ? err.stack.toString() : (err.message || "Terjadi kesalahan (tanpa pesan).") };
+  }
+
+  if (success) {
+    revalidatePath('/admin/dashboard');
+    revalidatePath(`/${finalSlug}`);
+    redirect('/admin/dashboard');
+  }
 }
