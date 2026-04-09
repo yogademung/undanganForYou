@@ -1,0 +1,99 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Invitation {
+  id               String    @id @default(cuid())
+  slug             String    @unique
+  title            String?
+  
+  groomFullName    String    @default("")
+  groomNickname    String    @default("")
+  groomFather      String    @default("")
+  groomMother      String    @default("")
+  groomChildOrder  String    @default("")
+  groomAddress     String    @db.Text
+  
+  brideFullName    String    @default("")
+  brideNickname    String    @default("")
+  brideFather      String    @default("")
+  brideMother      String    @default("")
+  brideChildOrder  String    @default("")
+  brideAddress     String    @db.Text
+  
+  date             DateTime
+  eventTime        String    @default("")
+  eventLocation    String    @default("")
+  address          String    @db.Text
+  mapUrl           String?   @db.Text
+  
+  bankName         String?
+  bankAccount      String?
+  bankAccountName  String?
+  
+  youtubeVideoId   String?
+  musicUrl         String?
+  coverUrl         String?
+  backgroundColor  String?   @default("#FAF9F6")
+  
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  images   Image[]
+  comments Comment[]
+  guests   Guest[]   @relation("InvitationToGuest")
+}
+
+model Guest {
+  id           String     @id @default(cuid())
+  name         String
+  pax          Int        @default(1)
+  token        String     @unique
+  
+  invitationId String
+  invitation   Invitation @relation("InvitationToGuest", fields: [invitationId], references: [id], onDelete: Cascade)
+  
+  createdAt    DateTime   @default(now())
+}
+
+enum ImagePosition {
+  HERO
+  BRIDE
+  GROOM
+  GALLERY_ITEM
+  COVER
+}
+
+model Image {
+  id           String        @id @default(cuid())
+  url          String
+  position     ImagePosition
+  invitationId String
+  createdAt    DateTime      @default(now())
+
+  invitation Invitation @relation(fields: [invitationId], references: [id], onDelete: Cascade)
+}
+
+model Comment {
+  id           String   @id @default(cuid())
+  name         String
+  text         String   @db.Text
+  isAttending  Boolean
+  invitationId String
+  createdAt    DateTime @default(now())
+
+  invitation Invitation @relation(fields: [invitationId], references: [id], onDelete: Cascade)
+}
