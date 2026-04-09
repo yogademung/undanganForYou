@@ -57,5 +57,6 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     }
-  }
+  },
+  secret: process.env.NEXTAUTH_SECRET || "subak_api_secret_key_2026_fallback",
 };
