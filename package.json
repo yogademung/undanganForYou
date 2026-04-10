@@ -12,9 +12,6 @@
     "seed": "npx tsx prisma/seed.ts"
   },
   "dependencies": {
-    "@fontsource/great-vibes": "^5.2.8",
-    "@fontsource/inter": "^5.2.8",
-    "@fontsource/playfair-display": "^5.2.8",
     "@prisma/client": "^6.19.3",
     "@types/bcryptjs": "^2.4.6",
     "bcryptjs": "^3.0.3",
