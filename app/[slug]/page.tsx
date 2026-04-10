@@ -87,69 +87,77 @@ export default async function InvitationPage(props: PageProps) {
         <section className="min-h-screen flex flex-col justify-center items-center text-center relative p-4 overflow-hidden">
           <div className="absolute inset-0 -z-10">
             {heroImage ? (
-              <img src={heroImage.url} alt="Hero" className="w-full h-full object-cover opacity-60" />
+              <img src={heroImage.url} alt="Hero" className="w-full h-full object-cover opacity-70" />
             ) : (
-              <div className="w-full h-full bg-gradient-to-br from-[#1A1A1A] to-[#2d2925] opacity-60" />
+              <div className="w-full h-full bg-gradient-to-br from-[#1A1A1A] to-[#2d2925] opacity-70" />
             )}
           </div>
-          <AnimateOnScroll delay={0.6} className="glass-dark p-8 rounded-2xl max-w-2xl text-white">
-            <p className="text-sm tracking-[0.3em] uppercase text-[var(--color-gold)] mb-4">Pernikahan Suci</p>
-            <h1 className="text-5xl md:text-7xl font-playfair mb-6 mt-4">{title}</h1>
-            <p className="text-lg text-gray-300 italic mb-8">
-              "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri..."
-            </p>
+          <AnimateOnScroll delay={0.6} className="flex flex-col items-center max-w-4xl px-4">
+            <h2 className="text-sm tracking-[0.4em] uppercase text-[var(--color-charcoal)] font-bold mb-6 opacity-80">The Wedding Of</h2>
+            <h1 className="text-7xl md:text-9xl font-script text-[var(--color-gold)] leading-tight mb-8 drop-shadow-sm">
+              {invitation.groomNickname} & {invitation.brideNickname}
+            </h1>
+            
+            <div className="flex flex-col items-center gap-6 text-[var(--color-charcoal)] px-4">
+              <p className="font-script text-5xl md:text-7xl text-[var(--color-gold)] drop-shadow-sm">Om Swastyastu</p>
+              <p className="text-sm md:text-lg font-serif font-semibold max-w-xl leading-relaxed tracking-wide opacity-90">
+                Tanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i, serta kerabat sekalian, untuk menghadiri acara pernikahan kami:
+              </p>
+            </div>
           </AnimateOnScroll>
         </section>
 
         <BaliDivider />
 
         {/* Couple Section */}
-        <section className="py-16 px-4 max-w-5xl mx-auto overflow-hidden">
-          <AnimateOnScroll direction="up" className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-playfair text-[var(--color-gold)] mb-4">Yang Berbahagia</h2>
-            <p className="max-w-2xl mx-auto text-gray-600 leading-relaxed text-sm md:text-base">Maha Suci Tuhan yang telah menciptakan makhluk-Nya berpasang-pasangan. Ya Tuhan, perkenankanlah kami merangkai kasih sayang yang Kau ciptakan di antara putra-putri kami:</p>
+        <section className="py-20 px-4 max-w-5xl mx-auto overflow-hidden text-center">
+          <AnimateOnScroll direction="up" className="mb-16 flex items-center justify-center gap-4">
+            <div className="h-[1px] bg-[var(--color-gold)]/40 flex-1 max-w-[100px]"></div>
+            <span className="text-xl md:text-2xl font-serif font-bold text-[#4A4A4A] tracking-wider uppercase">Bride & Groom</span>
+            <div className="h-[1px] bg-[var(--color-gold)]/40 flex-1 max-w-[100px]"></div>
           </AnimateOnScroll>
 
-          <div className="flex flex-col md:flex-row gap-12 items-center md:items-start justify-center">
+          <AnimateOnScroll direction="up" className="mb-16">
+            <h3 className="text-2xl md:text-3xl font-playfair text-[var(--color-gold)] mb-6">Mempelai Berbahagia</h3>
+            <p className="max-w-2xl mx-auto text-gray-600 leading-relaxed text-sm md:text-base italic">
+              "Bukan seberapa membara di mula, tapi siapa yang tetap menggenggam tanganmu ketika raga menua dan langkah tak lagi bertenaga."
+            </p>
+          </AnimateOnScroll>
 
+          <div className="flex flex-col md:flex-row gap-16 items-center md:items-start justify-center mt-20">
             {/* Groom */}
             <AnimateOnScroll direction="left" className="text-center md:w-1/2 flex flex-col items-center">
-              <div className="w-56 h-56 rounded-full overflow-hidden mb-6 border-4 border-[var(--color-gold)] shadow-xl relative">
+              <div className="w-56 h-56 rounded-full overflow-hidden mb-8 border-4 border-[var(--color-gold)]/20 shadow-2xl relative">
                 {groomImage ? (
                   <img src={groomImage.url} alt="Groom" className="w-full h-full object-cover" />
                 ) : (
                   <div className="w-full h-full bg-gray-200" />
                 )}
               </div>
-              <h3 className="text-3xl font-playfair text-[var(--color-charcoal)] mb-3">{invitation.groomFullName}</h3>
-              <p className="text-[var(--color-gold)] font-medium mb-2">"{invitation.groomNickname}"</p>
-              <div className="mt-2 text-gray-600 text-sm">
-                <p>Putra {invitation.groomChildOrder.toLowerCase()} dari Bapak {invitation.groomFather}</p>
-                <p>& Ibu {invitation.groomMother}</p>
-                <p className="mt-2 text-gray-500 max-w-xs">{invitation.groomAddress}</p>
+              <h3 className="text-3xl font-playfair text-[var(--color-gold)] mb-3">{invitation.groomFullName}</h3>
+              <div className="mt-2 text-gray-500 text-sm leading-relaxed">
+                <p>Putra {invitation.groomChildOrder.toLowerCase()} dari</p>
+                <p className="font-semibold text-gray-700 mt-1">Bapak {invitation.groomFather} & Ibu {invitation.groomMother}</p>
+                <p className="mt-4 text-xs italic max-w-xs">{invitation.groomAddress}</p>
               </div>
             </AnimateOnScroll>
 
-            <AnimateOnScroll direction="up" className="text-[var(--color-gold)] font-playfair text-6xl my-10 md:my-0 md:mt-24">&</AnimateOnScroll>
-
             {/* Bride */}
             <AnimateOnScroll direction="right" className="text-center md:w-1/2 flex flex-col items-center">
-              <div className="w-56 h-56 rounded-full overflow-hidden mb-6 border-4 border-[var(--color-gold)] shadow-xl relative">
+              <div className="w-56 h-56 rounded-full overflow-hidden mb-8 border-4 border-[var(--color-gold)]/20 shadow-2xl relative">
                 {brideImage ? (
                   <img src={brideImage.url} alt="Bride" className="w-full h-full object-cover" />
                 ) : (
                   <div className="w-full h-full bg-gray-200" />
                 )}
               </div>
-              <h3 className="text-3xl font-playfair text-[var(--color-charcoal)] mb-3">{invitation.brideFullName}</h3>
-              <p className="text-[var(--color-gold)] font-medium mb-2">"{invitation.brideNickname}"</p>
-              <div className="mt-2 text-gray-600 text-sm">
-                <p>Putri {invitation.brideChildOrder.toLowerCase()} dari Bapak {invitation.brideFather}</p>
-                <p>& Ibu {invitation.brideMother}</p>
-                <p className="mt-2 text-gray-500 max-w-xs">{invitation.brideAddress}</p>
+              <h3 className="text-3xl font-playfair text-[var(--color-gold)] mb-3">{invitation.brideFullName}</h3>
+              <div className="mt-2 text-gray-500 text-sm leading-relaxed">
+                <p>Putri {invitation.brideChildOrder.toLowerCase()} dari</p>
+                <p className="font-semibold text-gray-700 mt-1">Bapak {invitation.brideFather} & Ibu {invitation.brideMother}</p>
+                <p className="mt-4 text-xs italic max-w-xs">{invitation.brideAddress}</p>
               </div>
             </AnimateOnScroll>
-
           </div>
         </section>
 

@@ -7,6 +7,8 @@
   
   --font-playfair: var(--font-playfair-display);
   --font-inter: var(--font-inter);
+  --font-script: var(--font-great-vibes), cursive;
+  --font-serif: var(--font-playfair-display), serif;
 }
 
 @layer utilities {
@@ -15,7 +17,13 @@
   }
   
   .glass-dark {
-    @apply bg-black/20 backdrop-blur-[2px] border border-white/5 shadow-lg;
+    @apply bg-black/30 border border-white/5 shadow-2xl;
+    /* Menghilangkan blur total sesuai permintaan */
+    backdrop-filter: none;
+  }
+
+  .text-shadow-elegant {
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
   }
 }
 
