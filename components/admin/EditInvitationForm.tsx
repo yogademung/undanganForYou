@@ -133,6 +133,10 @@ export default function EditInvitationForm({ invitation }: { invitation: any }) 
             <textarea name="address" defaultValue={invitation.address} required rows={2} className="w-full px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-900 placeholder-gray-400 focus:border-[var(--color-gold)] focus:ring-1 focus:ring-[var(--color-gold)] outline-none"></textarea>
           </div>
           <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Google Maps Embed URL</label>
+            <input type="url" name="mapUrl" defaultValue={invitation.mapUrl || ''} className="w-full px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-900 placeholder-gray-400 focus:border-[var(--color-gold)] focus:ring-1 focus:ring-[var(--color-gold)] outline-none" placeholder="https://maps.google.com/..." />
+          </div>
+          <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Unggah Musik Latar Baru (.mp3)</label>
             {invitation.musicUrl && (
                <p className="text-xs text-gray-500 mb-2 truncate">🎵 Saat ini: {invitation.musicUrl.split('/').pop()}</p>
@@ -172,8 +176,11 @@ export default function EditInvitationForm({ invitation }: { invitation: any }) 
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Gambar Background Flash Awal (Cover)</label>
-            {invitation.coverUrl && (
-               <p className="text-xs text-[var(--color-gold)] mb-2 truncate">🖼️ Aktif: {invitation.coverUrl.split('/').pop()}</p>
+            {invitation.coverUrl && invitation.coverUrl.startsWith('/') && (
+              <div className="mb-2 flex items-center gap-3">
+                <img src={invitation.coverUrl} alt="Cover aktif" className="w-16 h-16 object-cover rounded border border-gray-200" />
+                <p className="text-xs text-[var(--color-gold)] truncate">🖼️ Aktif: {invitation.coverUrl.split('/').pop()}</p>
+              </div>
             )}
             <input type="file" name="coverFile" accept="image/*" className="w-full px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-900 focus:border-[var(--color-gold)] focus:ring-1 focus:ring-[var(--color-gold)] outline-none" />
             <input type="hidden" name="coverUrl" value={invitation.coverUrl || ''} />

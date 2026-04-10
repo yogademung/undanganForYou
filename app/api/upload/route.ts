@@ -17,7 +17,7 @@ export async function POST(req: Request) {
     const file = formData.get('file') as File;
     const invitationId = formData.get('invitationId') as string;
     const slug = formData.get('slug') as string;
-    const position = formData.get('position') as 'HERO' | 'BRIDE' | 'GROOM' | 'GALLERY_ITEM';
+    const position = formData.get('position') as 'HERO' | 'BRIDE' | 'GROOM' | 'GALLERY_ITEM' | 'COVER';
 
     if (!file || !invitationId || !slug || !position) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
@@ -43,7 +43,7 @@ export async function POST(req: Request) {
 
     const url = `/uploads/${slug}/${filename}`;
 
-    // Replace if position is strictly single (HERO, BRIDE, GROOM)
+    // Replace if position is strictly single (HERO, BRIDE, GROOM, COVER)
     if (position !== 'GALLERY_ITEM') {
       const existing = await prisma.image.findFirst({
         where: { invitationId, position }
@@ -61,6 +61,14 @@ export async function POST(req: Request) {
         invitationId
       }
     });
+
+    // If position is COVER, also sync invitation.coverUrl so the Cover overlay component can use it
+    if (position === 'COVER') {
+      await prisma.invitation.update({
+        where: { id: invitationId },
+        data: { coverUrl: url }
+      });
+    }
 
     return NextResponse.json({ success: true, image });
   } catch (error) {
