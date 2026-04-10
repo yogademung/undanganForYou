@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import prisma from '@/lib/prisma';
 import Cover from '@/components/invitation/Cover';
@@ -13,6 +14,46 @@ type PageProps = {
   params: Promise<{ slug: string }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
+
+export async function generateMetadata(props: PageProps): Promise<Metadata> {
+  const { slug } = await props.params;
+  const invitation = await prisma.invitation.findUnique({
+    where: { slug },
+  });
+
+  if (!invitation) return {};
+
+  const title = `The Wedding of ${invitation.groomNickname} & ${invitation.brideNickname}`;
+  const description = `Undangan pernikahan ${invitation.groomFullName} & ${invitation.brideFullName}. Mohon doa restu dan kehadirannya.`;
+  
+  // Base URL for metadata images
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://subak-api.my.id';
+  const imageUrl = invitation.coverUrl ? `${siteUrl}${invitation.coverUrl}` : `${siteUrl}/images/og-image.jpg`;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [imageUrl],
+    },
+  };
+}
 
 export default async function InvitationPage(props: PageProps) {
   const { slug } = await props.params;
