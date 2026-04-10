@@ -38,7 +38,7 @@ async function processFormData(formData: FormData) {
       await mkdir(uploadDir, { recursive: true });
 
       const safeName = musicFile.name.replace(/[^a-zA-Z0-9.\-_]/g, '');
-      const fileName = `${slug}-${Date.now()}-${safeName}`;
+      const fileName = `${Date.now()}-${safeName}`;
       const filePath = join(uploadDir, fileName);
       
       await writeFile(filePath, buffer);
@@ -61,7 +61,7 @@ async function processFormData(formData: FormData) {
       const uploadDir = join(process.cwd(), 'public', 'uploads', 'images');
       await mkdir(uploadDir, { recursive: true });
 
-      const fileName = `${slug}-cover-${Date.now()}.webp`;
+      const fileName = `${Date.now()}.webp`;
       const filePath = join(uploadDir, fileName);
       
       const optimizedBuffer = await sharp(buffer)
