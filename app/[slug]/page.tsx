@@ -47,7 +47,8 @@ export default async function InvitationPage(props: PageProps) {
   const groomImage = invitation.images.find(img => img.position === 'GROOM');
   const galleryImages = invitation.images.filter(img => img.position === 'GALLERY_ITEM');
 
-  const animatedBackgroundUrl = invitation.coverUrl || invitation.images.find(img => img.position === 'COVER')?.url;
+  // coverUrl selalu disinkronkan saat upload COVER via ImageManager maupun form edit
+  const coverUrl = invitation.coverUrl || null;
 
   const title = invitation.title || `${invitation.brideNickname} & ${invitation.groomNickname}`;
 
@@ -67,10 +68,10 @@ export default async function InvitationPage(props: PageProps) {
         }
       `}</style>
 
-      {animatedBackgroundUrl && (
+      {coverUrl && (
         <div
           className="fixed inset-0 -z-10 bg-cover bg-center animate-ken-burns opacity-5 pointer-events-none will-change-transform"
-          style={{ backgroundImage: `url('${animatedBackgroundUrl}')` }}
+          style={{ backgroundImage: `url('${coverUrl}')` }}
         />
       )}
       <main className="min-h-screen relative z-0 font-inter text-gray-900">
@@ -80,7 +81,7 @@ export default async function InvitationPage(props: PageProps) {
         )}
 
         {/* Intro Overlay */}
-        <Cover guestName={to} title={title} coverUrl={invitation.coverUrl} />
+        <Cover guestName={to} title={title} coverUrl={coverUrl} />
 
         {/* Hero Section */}
         <section className="min-h-screen flex flex-col justify-center items-center text-center relative p-4 overflow-hidden">

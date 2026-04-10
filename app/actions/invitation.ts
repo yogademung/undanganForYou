@@ -23,6 +23,7 @@ function extractYoutubeId(url: string | null): string | null {
 
 async function processFormData(formData: FormData) {
   const raw = Object.fromEntries(formData);
+  const slug = raw.slug as string;
   let finalMusicUrl = (raw.musicUrl as string) || null;
 
   const musicFile = formData.get('musicFile') as File | null;
@@ -32,11 +33,12 @@ async function processFormData(formData: FormData) {
       const bytes = await musicFile.arrayBuffer();
       const buffer = Buffer.from(bytes);
 
+      // Musik disimpan di /uploads/music/ — dipisah dari gambar
       const uploadDir = join(process.cwd(), 'public', 'uploads', 'music');
       await mkdir(uploadDir, { recursive: true });
 
       const safeName = musicFile.name.replace(/[^a-zA-Z0-9.\-_]/g, '');
-      const fileName = `${Date.now()}-${Math.floor(Math.random()*1000)}-${safeName}`;
+      const fileName = `${slug}-${Date.now()}-${safeName}`;
       const filePath = join(uploadDir, fileName);
       
       await writeFile(filePath, buffer);
@@ -55,11 +57,11 @@ async function processFormData(formData: FormData) {
       const bytes = await coverFile.arrayBuffer();
       const buffer = Buffer.from(bytes);
 
+      // Cover disimpan di folder standar /uploads/images/ dengan prefix slug
       const uploadDir = join(process.cwd(), 'public', 'uploads', 'images');
       await mkdir(uploadDir, { recursive: true });
 
-      const safeName = coverFile.name.replace(/[^a-zA-Z0-9.\-_]/g, '').replace(/\.[^/.]+$/, "");
-      const fileName = `${Date.now()}-${Math.floor(Math.random()*1000)}-${safeName}.webp`;
+      const fileName = `${slug}-cover-${Date.now()}.webp`;
       const filePath = join(uploadDir, fileName);
       
       const optimizedBuffer = await sharp(buffer)

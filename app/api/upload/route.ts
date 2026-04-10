@@ -16,10 +16,9 @@ export async function POST(req: Request) {
     const formData = await req.formData();
     const file = formData.get('file') as File;
     const invitationId = formData.get('invitationId') as string;
-    const slug = formData.get('slug') as string;
     const position = formData.get('position') as 'HERO' | 'BRIDE' | 'GROOM' | 'GALLERY_ITEM' | 'COVER';
 
-    if (!file || !invitationId || !slug || !position) {
+    if (!file || !invitationId || !position) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
@@ -27,42 +26,43 @@ export async function POST(req: Request) {
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
-    const filename = `${Date.now()}-${Math.round(Math.random() * 1e9)}.webp`;
-    const uploadDir = path.join(process.cwd(), 'public', 'uploads', slug);
-
-    // Create dir if not exists
+    // Semua gambar disimpan di satu folder standar: /public/uploads/images/
+    const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'images');
     await fs.mkdir(uploadDir, { recursive: true });
 
+    // Nama file: {invitationId}-{timestamp}-{random}.webp → mudah ditelusuri
+    const filename = `${invitationId}-${Date.now()}-${Math.round(Math.random() * 1e9)}.webp`;
     const filePath = path.join(uploadDir, filename);
 
-    // Process image with sharp
+    // Process & compress image with sharp
     await sharp(buffer)
       .resize({ width: 1200, withoutEnlargement: true })
       .webp({ quality: 80 })
       .toFile(filePath);
 
-    const url = `/uploads/${slug}/${filename}`;
+    const url = `/uploads/images/${filename}`;
 
-    // Replace if position is strictly single (HERO, BRIDE, GROOM, COVER)
+    // Untuk posisi single (bukan GALLERY_ITEM), hapus record lama
     if (position !== 'GALLERY_ITEM') {
       const existing = await prisma.image.findFirst({
         where: { invitationId, position }
       });
       if (existing) {
+        // Hapus file lama jika ada dan path lokal
+        if (existing.url.startsWith('/uploads/images/')) {
+          const oldFilePath = path.join(process.cwd(), 'public', existing.url);
+          await fs.unlink(oldFilePath).catch(() => {}); // abaikan jika sudah tidak ada
+        }
         await prisma.image.delete({ where: { id: existing.id } });
       }
     }
 
-    // Save record to database
+    // Simpan record ke database
     const image = await prisma.image.create({
-      data: {
-        url,
-        position,
-        invitationId
-      }
+      data: { url, position, invitationId }
     });
 
-    // If position is COVER, also sync invitation.coverUrl so the Cover overlay component can use it
+    // Jika COVER, sinkronkan juga ke kolom invitation.coverUrl
     if (position === 'COVER') {
       await prisma.invitation.update({
         where: { id: invitationId },
