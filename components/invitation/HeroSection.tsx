@@ -31,7 +31,7 @@ export default function HeroSection({
         className="absolute inset-0 -z-10 cursor-pointer group"
         onClick={() => setIsLightboxOpen(true)}
       >
-        <HeroSlideshow images={heroImages} />
+        <HeroSlideshow images={heroImages} backgroundColor={backgroundColor} />
         {/* Overlay to indicate interactivity */}
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500 flex items-center justify-center">
             <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-white/20 backdrop-blur-sm p-4 rounded-full border border-white/30">
@@ -42,15 +42,15 @@ export default function HeroSection({
         </div>
       </div>
 
-      <AnimateOnScroll delay={0.6} className="flex flex-col items-center max-w-4xl px-4 pointer-events-none">
-        <h2 className="text-sm tracking-[0.4em] uppercase text-[var(--color-charcoal)] font-bold mb-6 opacity-80">The Wedding Of</h2>
-        <h1 className="text-7xl md:text-9xl font-script text-[var(--color-gold)] leading-tight mb-8 drop-shadow-sm">
+      <AnimateOnScroll delay={0.6} className="flex flex-col items-center max-w-4xl px-4 pointer-events-none z-20">
+        <h2 className="text-sm tracking-[0.4em] uppercase text-[var(--color-charcoal)] font-bold mb-6 opacity-80 drop-shadow-md">The Wedding Of</h2>
+        <h1 className="text-7xl md:text-9xl font-script text-[var(--color-gold)] leading-tight mb-8 drop-shadow-md">
           {groomNickname} & {brideNickname}
         </h1>
         
         <div className="flex flex-col items-center gap-6 text-[var(--color-charcoal)] px-4">
-          <p className="font-script text-5xl md:text-7xl text-[var(--color-gold)] drop-shadow-sm">Om Swastyastu</p>
-          <p className="text-sm md:text-lg font-serif font-semibold max-w-xl leading-relaxed tracking-wide opacity-90">
+          <p className="font-script text-5xl md:text-7xl text-[var(--color-gold)] drop-shadow-md">Om Swastyastu</p>
+          <p className="text-sm md:text-lg font-serif font-semibold max-w-xl leading-relaxed tracking-wide opacity-90 drop-shadow-md">
             Tanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i, serta kerabat sekalian, untuk menghadiri acara pernikahan kami:
           </p>
         </div>

@@ -7,7 +7,13 @@ type Image = {
   url: string;
 };
 
-export default function HeroSlideshow({ images }: { images: Image[] }) {
+export default function HeroSlideshow({ 
+  images, 
+  backgroundColor 
+}: { 
+  images: Image[], 
+  backgroundColor?: string | null 
+}) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -25,18 +31,34 @@ export default function HeroSlideshow({ images }: { images: Image[] }) {
   }
 
   return (
-    <div className="relative w-full h-full">
+    <div 
+      className="relative w-full h-full overflow-hidden" 
+      style={{ backgroundColor: backgroundColor || 'black' }}
+    >
       <AnimatePresence mode="wait">
-        <motion.img
-          key={images[currentIndex].id}
-          src={images[currentIndex].url}
-          alt="Hero Background"
-          initial={{ opacity: 0, scale: 1.1 }}
-          animate={{ opacity: 0.7, scale: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 2, ease: "easeInOut" }}
-          className="w-full h-full object-cover absolute inset-0"
-        />
+        <div key={images[currentIndex].id} className="absolute inset-0">
+          {/* Blurred Background Layer (Object Cover to fill everything) */}
+          <motion.img
+            src={images[currentIndex].url}
+            alt=""
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.3 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.5 }}
+            className="w-full h-full object-cover blur-2xl scale-110"
+          />
+          
+          {/* Main Foreground Layer (Object Contain to show full image) */}
+          <motion.img
+            src={images[currentIndex].url}
+            alt="Hero Background"
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 0.8, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 2, ease: "easeInOut" }}
+            className="w-full h-full object-contain absolute inset-0 z-10"
+          />
+        </div>
       </AnimatePresence>
     </div>
   );
