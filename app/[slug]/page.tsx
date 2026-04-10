@@ -9,6 +9,7 @@ import GuestBook from '@/components/invitation/GuestBook';
 import BaliDivider from '@/components/invitation/BaliDivider';
 import AnimateOnScroll from '@/components/invitation/AnimateOnScroll';
 import GalleryLightbox from '@/components/invitation/GalleryLightbox';
+import HeroSection from '@/components/invitation/HeroSection';
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -125,28 +126,12 @@ export default async function InvitationPage(props: PageProps) {
         <Cover guestName={to} title={title} coverUrl={coverUrl} />
 
         {/* Hero Section */}
-        <section className="min-h-screen flex flex-col justify-center items-center text-center relative p-4 overflow-hidden">
-          <div className="absolute inset-0 -z-10">
-            {heroImage ? (
-              <img src={heroImage.url} alt="Hero" className="w-full h-full object-cover opacity-70" />
-            ) : (
-              <div className="w-full h-full bg-gradient-to-br from-[#1A1A1A] to-[#2d2925] opacity-70" />
-            )}
-          </div>
-          <AnimateOnScroll delay={0.6} className="flex flex-col items-center max-w-4xl px-4">
-            <h2 className="text-sm tracking-[0.4em] uppercase text-[var(--color-charcoal)] font-bold mb-6 opacity-80">The Wedding Of</h2>
-            <h1 className="text-7xl md:text-9xl font-script text-[var(--color-gold)] leading-tight mb-8 drop-shadow-sm">
-              {invitation.groomNickname} & {invitation.brideNickname}
-            </h1>
-            
-            <div className="flex flex-col items-center gap-6 text-[var(--color-charcoal)] px-4">
-              <p className="font-script text-5xl md:text-7xl text-[var(--color-gold)] drop-shadow-sm">Om Swastyastu</p>
-              <p className="text-sm md:text-lg font-serif font-semibold max-w-xl leading-relaxed tracking-wide opacity-90">
-                Tanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i, serta kerabat sekalian, untuk menghadiri acara pernikahan kami:
-              </p>
-            </div>
-          </AnimateOnScroll>
-        </section>
+        <HeroSection 
+          heroImages={[...(heroImage ? [heroImage] : []), ...galleryImages]} 
+          groomNickname={invitation.groomNickname} 
+          brideNickname={invitation.brideNickname} 
+          backgroundColor={invitation.backgroundColor}
+        />
 
         <BaliDivider />
 

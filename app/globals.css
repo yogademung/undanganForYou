@@ -1,15 +1,14 @@
 @import 'tailwindcss';
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 
 @theme {
   --color-gold: #D4AF37;
   --color-charcoal: #44403C; /* Softer, warmer charcoal */
   --color-offwhite: #FAF9F6;
   
-  --font-playfair: var(--font-playfair-display);
-  --font-inter: var(--font-inter);
-  --font-script: var(--font-great-vibes), cursive;
-  --font-serif: var(--font-playfair-display), serif;
+  --font-playfair: "Playfair Display", serif;
+  --font-inter: "Inter", sans-serif;
+  --font-script: "Great Vibes", cursive;
+  --font-serif: "Playfair Display", serif;
 }
 
 @layer utilities {

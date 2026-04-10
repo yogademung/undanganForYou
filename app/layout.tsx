@@ -1,22 +1,13 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display, Great_Vibes } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
-
-const playfair = Playfair_Display({
-  variable: "--font-playfair-display",
-  subsets: ["latin"],
-});
-
-const greatVibes = Great_Vibes({
-  weight: "400",
-  variable: "--font-great-vibes",
-  subsets: ["latin"],
-});
+// Import @fontsource fonts for production reliability
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/700.css";
+import "@fontsource/playfair-display/400.css";
+import "@fontsource/playfair-display/700.css";
+import "@fontsource/playfair-display/900.css";
+import "@fontsource/great-vibes/400.css";
 
 export const metadata: Metadata = {
   title: "Bali Inspired Digital Invitation",
@@ -30,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id" className="scroll-smooth">
-      <body className={`${inter.variable} ${playfair.variable} ${greatVibes.variable} antialiased`}>
+      <body className="antialiased font-inter">
         {children}
       </body>
     </html>
