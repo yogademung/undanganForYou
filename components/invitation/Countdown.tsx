@@ -56,7 +56,7 @@ export default function Countdown({ targetDate }: CountdownProps) {
     <div className="flex gap-4 justify-center items-center font-inter">
       {timeUnits.map((unit, index) => (
         <div key={index} className="flex flex-col items-center">
-          <div className="glass w-16 h-16 md:w-20 md:h-20 rounded-xl flex items-center justify-center mb-2 overflow-hidden relative shadow-md bg-[var(--color-offwhite)]">
+          <div className="w-16 h-16 md:w-20 md:h-20 rounded-xl flex items-center justify-center mb-2 overflow-hidden relative shadow-lg" style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(212,160,23,0.45)' }}>
             <AnimatePresence mode="popLayout">
               <motion.span
                 key={unit.value}
@@ -64,13 +64,13 @@ export default function Countdown({ targetDate }: CountdownProps) {
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: -20, opacity: 0 }}
                 transition={{ duration: 0.3 }}
-                className="absolute text-2xl md:text-3xl font-bold text-[var(--color-charcoal)]"
+                className="absolute text-2xl md:text-3xl font-bold" style={{ color: '#f0c060' }}
               >
                 {unit.value.toString().padStart(2, '0')}
               </motion.span>
             </AnimatePresence>
           </div>
-          <span className="text-xs md:text-sm uppercase tracking-widest text-[var(--color-charcoal)]">
+          <span className="text-xs md:text-sm uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.65)' }}>
             {unit.label}
           </span>
         </div>
