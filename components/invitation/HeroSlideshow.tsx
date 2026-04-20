@@ -271,17 +271,24 @@ function Slide({
         className={[
           'absolute inset-0 w-full h-full',
           isPortrait
-            ? 'object-contain z-10'   // contain → foto di tengah, sisi kosong terisi ornamen
-            : 'object-cover z-10',    // cover → penuh, ornamen tidak muncul
+            ? 'object-contain z-10'
+            : 'object-cover z-10',
         ].join(' ')}
+        style={{ opacity: isPortrait ? 1 : 0.65 }}
       />
 
-      {/* === LAYER 4 (paling atas): Vignette sudut halus === */}
+      {/* === LAYER 4: Soft vignette + subtle center fog untuk readability teks === */}
       <div
         className="absolute inset-0 z-20 pointer-events-none"
         style={{
-          background:
-            'radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.5) 100%)',
+          background: [
+            // Sudut gelap soft
+            'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.38) 100%)',
+            // Overlay lembut di area tengah bawah (zona teks)
+            'linear-gradient(to top, rgba(0,0,0,0.32) 0%, rgba(0,0,0,0.18) 35%, transparent 65%)',
+            // Overlay lembut di area tengah atas
+            'linear-gradient(to bottom, rgba(0,0,0,0.22) 0%, transparent 45%)',
+          ].join(', '),
         }}
       />
     </motion.div>
