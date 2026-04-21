@@ -28,7 +28,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
 
   const title = `The Wedding of ${invitation.groomNickname} & ${invitation.brideNickname}`;
   const description = `Undangan pernikahan ${invitation.groomFullName} & ${invitation.brideFullName}. Mohon doa restu dan kehadirannya.`;
-  
+
   // Base URL for metadata images
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://subak-api.my.id';
   const imageUrl = invitation.coverUrl ? `${siteUrl}${invitation.coverUrl}` : `${siteUrl}/images/og-image.jpg`;
@@ -128,10 +128,10 @@ export default async function InvitationPage(props: PageProps) {
         <Cover guestName={to} title={title} coverUrl={coverUrl} />
 
         {/* Hero Section */}
-        <HeroSection 
-          heroImages={[...(heroImage ? [heroImage] : []), ...galleryImages]} 
-          groomNickname={invitation.groomNickname} 
-          brideNickname={invitation.brideNickname} 
+        <HeroSection
+          heroImages={[...(heroImage ? [heroImage] : []), ...galleryImages]}
+          groomNickname={invitation.groomNickname}
+          brideNickname={invitation.brideNickname}
           backgroundColor={invitation.backgroundColor}
         />
 
@@ -216,9 +216,9 @@ export default async function InvitationPage(props: PageProps) {
             <div className="mb-14 flex flex-col items-center gap-3">
               {/* Small lotus icon above title */}
               <svg width="48" height="28" viewBox="0 0 96 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path d="M48,4 C38,18 24,20 16,14 C26,28 36,30 48,24 C60,30 70,28 80,14 C72,20 58,18 48,4Z" fill="#d4a017" opacity="0.9"/>
-                <path d="M48,14 C38,26 26,26 20,20 C30,32 40,32 48,26 C56,32 66,32 76,20 C70,26 58,26 48,14Z" fill="#f0c060" opacity="0.7"/>
-                <ellipse cx="48" cy="28" rx="6" ry="3" fill="#d4a017" opacity="0.85"/>
+                <path d="M48,4 C38,18 24,20 16,14 C26,28 36,30 48,24 C60,30 70,28 80,14 C72,20 58,18 48,4Z" fill="#d4a017" opacity="0.9" />
+                <path d="M48,14 C38,26 26,26 20,20 C30,32 40,32 48,26 C56,32 66,32 76,20 C70,26 58,26 48,14Z" fill="#f0c060" opacity="0.7" />
+                <ellipse cx="48" cy="28" rx="6" ry="3" fill="#d4a017" opacity="0.85" />
               </svg>
               <h2 className="text-4xl md:text-5xl font-playfair" style={{
                 background: 'linear-gradient(135deg, #f0c060 0%, #d4a017 50%, #b8860b 100%)',
@@ -255,45 +255,45 @@ export default async function InvitationPage(props: PageProps) {
                   {/* SVG Corner ornaments */}
                   {/* Top-left */}
                   <svg className="absolute top-0 left-0 w-20 h-20" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path d="M4,4 Q30,4 38,16 Q24,16 16,24 Q16,10 4,4Z" fill="#d4a017" opacity="0.25"/>
-                    <path d="M4,4 L40,4" stroke="#d4a017" strokeWidth="1.5" opacity="0.6"/>
-                    <path d="M4,4 L4,40" stroke="#d4a017" strokeWidth="1.5" opacity="0.6"/>
-                    <path d="M4,14 Q14,14 14,28 Q22,16 36,14" stroke="#d4a017" strokeWidth="1" fill="none" opacity="0.5"/>
-                    <path d="M4,22 Q10,22 14,30" stroke="#f0c060" strokeWidth="0.8" fill="none" opacity="0.5"/>
-                    <circle cx="14" cy="14" r="3" fill="#d4a017" opacity="0.6"/>
-                    <path d="M16,6 C20,10 18,16 14,16 C18,18 22,14 22,10Z" fill="#f0c060" opacity="0.4"/>
-                    <path d="M6,16 C10,20 16,18 16,14 C18,18 14,22 10,22Z" fill="#f0c060" opacity="0.4"/>
+                    <path d="M4,4 Q30,4 38,16 Q24,16 16,24 Q16,10 4,4Z" fill="#d4a017" opacity="0.25" />
+                    <path d="M4,4 L40,4" stroke="#d4a017" strokeWidth="1.5" opacity="0.6" />
+                    <path d="M4,4 L4,40" stroke="#d4a017" strokeWidth="1.5" opacity="0.6" />
+                    <path d="M4,14 Q14,14 14,28 Q22,16 36,14" stroke="#d4a017" strokeWidth="1" fill="none" opacity="0.5" />
+                    <path d="M4,22 Q10,22 14,30" stroke="#f0c060" strokeWidth="0.8" fill="none" opacity="0.5" />
+                    <circle cx="14" cy="14" r="3" fill="#d4a017" opacity="0.6" />
+                    <path d="M16,6 C20,10 18,16 14,16 C18,18 22,14 22,10Z" fill="#f0c060" opacity="0.4" />
+                    <path d="M6,16 C10,20 16,18 16,14 C18,18 14,22 10,22Z" fill="#f0c060" opacity="0.4" />
                   </svg>
                   {/* Top-right */}
                   <svg className="absolute top-0 right-0 w-20 h-20" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path d="M76,4 Q50,4 42,16 Q56,16 64,24 Q64,10 76,4Z" fill="#d4a017" opacity="0.25"/>
-                    <path d="M76,4 L40,4" stroke="#d4a017" strokeWidth="1.5" opacity="0.6"/>
-                    <path d="M76,4 L76,40" stroke="#d4a017" strokeWidth="1.5" opacity="0.6"/>
-                    <path d="M76,14 Q66,14 66,28 Q58,16 44,14" stroke="#d4a017" strokeWidth="1" fill="none" opacity="0.5"/>
-                    <path d="M76,22 Q70,22 66,30" stroke="#f0c060" strokeWidth="0.8" fill="none" opacity="0.5"/>
-                    <circle cx="66" cy="14" r="3" fill="#d4a017" opacity="0.6"/>
-                    <path d="M64,6 C60,10 62,16 66,16 C62,18 58,14 58,10Z" fill="#f0c060" opacity="0.4"/>
-                    <path d="M74,16 C70,20 64,18 64,14 C62,18 66,22 70,22Z" fill="#f0c060" opacity="0.4"/>
+                    <path d="M76,4 Q50,4 42,16 Q56,16 64,24 Q64,10 76,4Z" fill="#d4a017" opacity="0.25" />
+                    <path d="M76,4 L40,4" stroke="#d4a017" strokeWidth="1.5" opacity="0.6" />
+                    <path d="M76,4 L76,40" stroke="#d4a017" strokeWidth="1.5" opacity="0.6" />
+                    <path d="M76,14 Q66,14 66,28 Q58,16 44,14" stroke="#d4a017" strokeWidth="1" fill="none" opacity="0.5" />
+                    <path d="M76,22 Q70,22 66,30" stroke="#f0c060" strokeWidth="0.8" fill="none" opacity="0.5" />
+                    <circle cx="66" cy="14" r="3" fill="#d4a017" opacity="0.6" />
+                    <path d="M64,6 C60,10 62,16 66,16 C62,18 58,14 58,10Z" fill="#f0c060" opacity="0.4" />
+                    <path d="M74,16 C70,20 64,18 64,14 C62,18 66,22 70,22Z" fill="#f0c060" opacity="0.4" />
                   </svg>
                   {/* Bottom-left */}
                   <svg className="absolute bottom-0 left-0 w-20 h-20" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path d="M4,76 Q30,76 38,64 Q24,64 16,56 Q16,70 4,76Z" fill="#d4a017" opacity="0.25"/>
-                    <path d="M4,76 L40,76" stroke="#d4a017" strokeWidth="1.5" opacity="0.6"/>
-                    <path d="M4,76 L4,40" stroke="#d4a017" strokeWidth="1.5" opacity="0.6"/>
-                    <path d="M4,66 Q14,66 14,52 Q22,64 36,66" stroke="#d4a017" strokeWidth="1" fill="none" opacity="0.5"/>
-                    <circle cx="14" cy="66" r="3" fill="#d4a017" opacity="0.6"/>
-                    <path d="M16,74 C20,70 18,64 14,64 C18,62 22,66 22,70Z" fill="#f0c060" opacity="0.4"/>
-                    <path d="M6,64 C10,60 16,62 16,66 C18,62 14,58 10,58Z" fill="#f0c060" opacity="0.4"/>
+                    <path d="M4,76 Q30,76 38,64 Q24,64 16,56 Q16,70 4,76Z" fill="#d4a017" opacity="0.25" />
+                    <path d="M4,76 L40,76" stroke="#d4a017" strokeWidth="1.5" opacity="0.6" />
+                    <path d="M4,76 L4,40" stroke="#d4a017" strokeWidth="1.5" opacity="0.6" />
+                    <path d="M4,66 Q14,66 14,52 Q22,64 36,66" stroke="#d4a017" strokeWidth="1" fill="none" opacity="0.5" />
+                    <circle cx="14" cy="66" r="3" fill="#d4a017" opacity="0.6" />
+                    <path d="M16,74 C20,70 18,64 14,64 C18,62 22,66 22,70Z" fill="#f0c060" opacity="0.4" />
+                    <path d="M6,64 C10,60 16,62 16,66 C18,62 14,58 10,58Z" fill="#f0c060" opacity="0.4" />
                   </svg>
                   {/* Bottom-right */}
                   <svg className="absolute bottom-0 right-0 w-20 h-20" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path d="M76,76 Q50,76 42,64 Q56,64 64,56 Q64,70 76,76Z" fill="#d4a017" opacity="0.25"/>
-                    <path d="M76,76 L40,76" stroke="#d4a017" strokeWidth="1.5" opacity="0.6"/>
-                    <path d="M76,76 L76,40" stroke="#d4a017" strokeWidth="1.5" opacity="0.6"/>
-                    <path d="M76,66 Q66,66 66,52 Q58,64 44,66" stroke="#d4a017" strokeWidth="1" fill="none" opacity="0.5"/>
-                    <circle cx="66" cy="66" r="3" fill="#d4a017" opacity="0.6"/>
-                    <path d="M64,74 C60,70 62,64 66,64 C62,62 58,66 58,70Z" fill="#f0c060" opacity="0.4"/>
-                    <path d="M74,64 C70,60 64,62 64,66 C62,62 66,58 70,58Z" fill="#f0c060" opacity="0.4"/>
+                    <path d="M76,76 Q50,76 42,64 Q56,64 64,56 Q64,70 76,76Z" fill="#d4a017" opacity="0.25" />
+                    <path d="M76,76 L40,76" stroke="#d4a017" strokeWidth="1.5" opacity="0.6" />
+                    <path d="M76,76 L76,40" stroke="#d4a017" strokeWidth="1.5" opacity="0.6" />
+                    <path d="M76,66 Q66,66 66,52 Q58,64 44,66" stroke="#d4a017" strokeWidth="1" fill="none" opacity="0.5" />
+                    <circle cx="66" cy="66" r="3" fill="#d4a017" opacity="0.6" />
+                    <path d="M64,74 C60,70 62,64 66,64 C62,62 58,66 58,70Z" fill="#f0c060" opacity="0.4" />
+                    <path d="M74,64 C70,60 64,62 64,66 C62,62 66,58 70,58Z" fill="#f0c060" opacity="0.4" />
                   </svg>
 
                   {/* Card content */}
@@ -312,8 +312,8 @@ export default async function InvitationPage(props: PageProps) {
                     <div className="flex items-center justify-center gap-2 my-5">
                       <div className="flex-1 max-w-[60px] h-px" style={{ background: 'linear-gradient(90deg, transparent, #d4a017)' }} />
                       <svg width="18" height="18" viewBox="0 0 36 36" fill="none" aria-hidden="true">
-                        <path d="M18,4 C12,12 6,12 4,8 C8,16 14,18 18,14 C22,18 28,16 32,8 C30,12 24,12 18,4Z" fill="#d4a017" opacity="0.85"/>
-                        <circle cx="18" cy="16" r="4" fill="#f0c060" opacity="0.7"/>
+                        <path d="M18,4 C12,12 6,12 4,8 C8,16 14,18 18,14 C22,18 28,16 32,8 C30,12 24,12 18,4Z" fill="#d4a017" opacity="0.85" />
+                        <circle cx="18" cy="16" r="4" fill="#f0c060" opacity="0.7" />
                       </svg>
                       <div className="flex-1 max-w-[60px] h-px" style={{ background: 'linear-gradient(90deg, #d4a017, transparent)' }} />
                     </div>
@@ -338,7 +338,7 @@ export default async function InvitationPage(props: PageProps) {
             <div className="mb-4 flex flex-col items-center">
               <h3 className="text-xs font-inter text-[#d4a017]/70 mb-8 tracking-[0.4em] uppercase">Menghitung Mundur</h3>
               <Countdown targetDate={invitation.date} />
-              <SaveDateButton 
+              <SaveDateButton
                 title={`Wedding of ${invitation.groomNickname} & ${invitation.brideNickname}`}
                 date={invitation.date}
                 location={invitation.eventLocation}
@@ -351,10 +351,10 @@ export default async function InvitationPage(props: PageProps) {
         <BaliDivider />
 
         {/* Gift Section */}
-        <GiftSection 
-          bankName={invitation.bankName} 
-          bankAccount={invitation.bankAccount} 
-          bankAccountName={invitation.bankAccountName} 
+        <GiftSection
+          bankName={invitation.bankName}
+          bankAccount={invitation.bankAccount}
+          bankAccountName={invitation.bankAccountName}
         />
 
         {/* Gallery Section */}
@@ -405,7 +405,7 @@ export default async function InvitationPage(props: PageProps) {
         </section>
 
         <footer className="py-8 text-center bg-[var(--color-charcoal)] text-white/60 text-sm mt-16 font-inter">
-          <p>&copy; {new Date().getFullYear()} Bali Inspired Invitations. All rights reserved.</p>
+          <p>Copy right by I Putu Gede Darma Yoga @ 2026. All rights reserved.</p>
         </footer>
       </main>
     </>
