@@ -48,11 +48,11 @@ export default function HeroSection({
           {groomNickname} & {brideNickname}
         </h1>
         
-        <div className="flex flex-col items-center gap-6 text-white/90 px-4">
-          <p className="font-script text-6xl md:text-8xl text-[var(--color-gold)] drop-shadow-2xl" style={{ filter: 'drop-shadow(0 0 15px rgba(212,160,23,0.3))' }}>
+        <div className="flex flex-col items-center gap-8 text-white/90 px-4">
+          <p className="font-script text-7xl md:text-9xl text-[var(--color-gold)] drop-shadow-2xl" style={{ filter: 'drop-shadow(0 0 20px rgba(212,160,23,0.4))' }}>
             Om Swastyastu
           </p>
-          <p className="text-sm md:text-lg font-serif font-medium max-w-xl leading-relaxed tracking-wide opacity-95 drop-shadow-md text-white/80">
+          <p className="text-lg md:text-2xl font-serif font-medium max-w-2xl leading-relaxed tracking-wide drop-shadow-lg text-white/80">
             Tanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i, serta kerabat sekalian, untuk menghadiri acara pernikahan kami:
           </p>
         </div>
