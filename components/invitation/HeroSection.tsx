@@ -10,18 +10,33 @@ type Image = {
   position: string;
 };
 
+type Comment = {
+  id: string;
+  name: string;
+  text: string;
+  createdAt: Date;
+};
+
 type HeroSectionProps = {
   heroImages: Image[];
   groomNickname: string;
   brideNickname: string;
   backgroundColor?: string | null;
+  invitationId?: string;
+  slug?: string;
+  guestName?: string | null;
+  comments?: Comment[];
 };
 
 export default function HeroSection({ 
   heroImages, 
   groomNickname, 
   brideNickname,
-  backgroundColor 
+  backgroundColor,
+  invitationId,
+  slug,
+  guestName,
+  comments = []
 }: HeroSectionProps) {
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
@@ -31,7 +46,14 @@ export default function HeroSection({
         className="absolute inset-0 -z-10 cursor-pointer group"
         onClick={() => setIsLightboxOpen(true)}
       >
-        <HeroSlideshow images={heroImages} backgroundColor={backgroundColor} />
+        <HeroSlideshow 
+          images={heroImages} 
+          backgroundColor={backgroundColor} 
+          invitationId={invitationId}
+          slug={slug}
+          guestName={guestName}
+          comments={comments}
+        />
         {/* Overlay to indicate interactivity */}
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500 flex items-center justify-center">
             <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-white/20 backdrop-blur-sm p-4 rounded-full border border-white/30">

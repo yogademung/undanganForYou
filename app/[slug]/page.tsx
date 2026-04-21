@@ -133,6 +133,10 @@ export default async function InvitationPage(props: PageProps) {
           groomNickname={invitation.groomNickname}
           brideNickname={invitation.brideNickname}
           backgroundColor={invitation.backgroundColor}
+          invitationId={invitation.id}
+          slug={invitation.slug}
+          guestName={to}
+          comments={invitation.comments}
         />
 
         <BaliDivider />

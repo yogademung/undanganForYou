@@ -1,10 +1,18 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
+import { submitInstagramComment } from '@/app/actions/comment';
 
 type Image = {
   id: string;
   url: string;
+};
+
+type Comment = {
+  id: string;
+  name: string;
+  text: string;
+  createdAt: Date;
 };
 
 
@@ -150,12 +158,19 @@ function Slide({
 export default function HeroSlideshow({
   images,
   backgroundColor,
+  invitationId,
+  slug,
+  guestName,
+  comments = [],
 }: {
   images: Image[];
   backgroundColor?: string | null;
+  invitationId?: string;
+  slug?: string;
+  guestName?: string | null;
+  comments?: Comment[];
 }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  // Track which variant was used, advance through all variants in order
   const variantIndexRef = useRef(0);
   const [variantIndex, setVariantIndex] = useState(0);
 
@@ -191,6 +206,7 @@ export default function HeroSlideshow({
         />
       </AnimatePresence>
 
+
       {/* Slide indicators (Instagram Story style at top) */}
       <div className="absolute top-5 left-0 right-0 px-4 z-40 space-y-3 pointer-events-none">
         {images.length > 1 && (
@@ -198,11 +214,11 @@ export default function HeroSlideshow({
             {images.map((_, i) => (
               <div
                 key={i}
-                className="flex-1 h-[2px] rounded-full transition-all duration-500"
+                className="flex-1 h-[2.5px] rounded-full transition-all duration-500"
                 style={{
                   background: i === currentIndex
                     ? 'rgba(255,255,255,1)'
-                    : 'rgba(255,255,255,0.35)',
+                    : 'rgba(255,255,255,0.3)',
                 }}
               />
             ))}
@@ -212,53 +228,69 @@ export default function HeroSlideshow({
         {/* Instagram-style Story Header (Collaborative Post) */}
         <div className="flex items-center justify-between pointer-events-auto">
           <div className="flex items-center gap-2.5">
-            {/* Overlapping profile pictures (Collaborative Look) */}
-            <div className="relative flex items-center h-8 w-11">
-              {/* First Avatar */}
+            <div className="relative flex items-center h-8 w-11 hover:scale-105 transition-transform cursor-pointer">
               <div className="absolute left-0 w-8 h-8 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 p-[1.5px] shadow-lg">
                 <div className="w-full h-full rounded-full bg-neutral-800 flex items-center justify-center overflow-hidden border border-black/10">
-                   <span className="text-[10px] font-bold text-white uppercase">D</span>
+                   <span className="text-[10px] font-bold text-white uppercase text-shadow-none">D</span>
                 </div>
               </div>
-              {/* Second Avatar (Overlapping) */}
               <div className="absolute left-4 w-8 h-8 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 p-[1.5px] shadow-lg border-2 border-black/10">
                 <div className="w-full h-full rounded-full bg-neutral-800 flex items-center justify-center overflow-hidden border border-black/10">
-                   <span className="text-[10px] font-bold text-white uppercase">J</span>
+                   <span className="text-[10px] font-bold text-white uppercase text-shadow-none">J</span>
                 </div>
               </div>
             </div>
             
             <div className="flex flex-col">
-              <div className="flex items-center gap-1">
-                <span className="text-white text-[13px] font-semibold tracking-tight [text-shadow:0_1px_2px_rgba(0,0,0,0.5)]">
+              <div className="flex items-center gap-1.5">
+                <span className="text-white text-[13px] font-semibold tracking-tight [text-shadow:0_1px_2.5px_rgba(0,0,0,0.6)] hover:underline cursor-pointer">
                   darma_yyoga & jeniari123
                 </span>
-                {/* Verified badge style (Subtle) */}
-                <div className="w-3 h-3 bg-blue-500 rounded-full flex items-center justify-center">
-                  <svg viewBox="0 0 24 24" className="w-2 h-2 text-white fill-current">
+                <div className="w-3.5 h-3.5 bg-blue-500 rounded-full flex items-center justify-center">
+                  <svg viewBox="0 0 24 24" className="w-2.5 h-2.5 text-white fill-current">
                     <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
                   </svg>
                 </div>
               </div>
-              <span className="text-white/85 text-[10px] font-medium [text-shadow:0_1px_1px_rgba(0,0,0,0.3)]">
+              <span className="text-white/90 text-[10.5px] font-medium [text-shadow:0_1px_1.5px_rgba(0,0,0,0.45)]">
                 Our Wedding • 12h
               </span>
             </div>
           </div>
           
-          <div className="flex items-center gap-3">
-             <button className="p-1 opacity-90 transition-opacity hover:opacity-100">
-              <svg viewBox="0 0 24 24" className="w-5 h-5 text-white" fill="none" stroke="currentColor" strokeWidth="2.5">
+          <div className="flex items-center gap-4">
+             <button className="p-1 opacity-90 transition-all hover:opacity-100 hover:scale-110 active:scale-95">
+              <svg viewBox="0 0 24 24" className="w-5 h-5 text-white filter drop-shadow-md" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
               </svg>
             </button>
-            <button className="p-1 opacity-90 transition-opacity hover:opacity-100">
-              <svg viewBox="0 0 24 24" className="w-5 h-5 text-white" fill="none" stroke="currentColor" strokeWidth="2.5">
+            <button className="p-1 opacity-90 transition-all hover:opacity-100 hover:scale-110 active:scale-95">
+              <svg viewBox="0 0 24 24" className="w-5 h-5 text-white filter drop-shadow-md" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
           </div>
         </div>
+      </div>
+
+      {/* Bottom UI: Swipe Up Indicator */}
+      <div className="absolute bottom-12 left-0 right-0 px-4 z-40 flex justify-center items-center pointer-events-none">
+        <motion.div 
+          className="flex flex-col items-center gap-1.5 pointer-events-auto cursor-pointer group"
+          animate={{ y: [0, -10, 0] }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+          onClick={(e) => {
+            e.stopPropagation();
+            window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
+          }}
+        >
+          <svg viewBox="0 0 24 24" className="w-7 h-7 text-white drop-shadow-lg group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" strokeWidth="3">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+          </svg>
+          <span className="text-white text-[10.5px] font-bold uppercase tracking-[0.25em] [text-shadow:0_1.5px_5px_rgba(0,0,0,0.7)] group-hover:tracking-[0.3em] transition-all">
+            Swipe Up
+          </span>
+        </motion.div>
       </div>
     </div>
   );

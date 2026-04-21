@@ -31,3 +31,26 @@ export async function submitComment(formData: FormData, invitationId: string, sl
     return { error: 'Gagal mengirim komentar. Silakan coba lagi.' };
   }
 }
+
+export async function submitInstagramComment(text: string, invitationId: string, slug: string, guestName?: string) {
+  try {
+    if (!text || text.trim() === '') {
+      return { error: 'Komentar tidak boleh kosong.' };
+    }
+
+    await prisma.comment.create({
+      data: {
+        name: guestName || 'Guest',
+        text,
+        isAttending: true,
+        invitationId,
+      },
+    });
+
+    revalidatePath(`/${slug}`);
+    return { success: true };
+  } catch (error) {
+    console.error('Failed to submit Instagram comment:', error);
+    return { error: 'Gagal mengirim komentar.' };
+  }
+}
