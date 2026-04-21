@@ -106,17 +106,17 @@ function Slide({
           src={image.url}
           alt=""
           className="w-full h-full object-cover blur-3xl scale-125"
-          style={{ opacity: 0.22 }}
+          style={{ opacity: 0.35 }}
           aria-hidden="true"
         />
       </div>
 
-      {/* === LAYER 2: Vignette overlay untuk konsistensi warna (mengisi area kosong jika contain) === */}
+      {/* === LAYER 2: Vignette overlay (mengisi area kosong dengan transparansi lebih tinggi) === */}
       <div
         className="absolute inset-0"
         style={{
-          background: `radial-gradient(ellipse at center, transparent 40%, ${backgroundColor || '#1a100a'} 100%)`,
-          opacity: 0.8,
+          background: `radial-gradient(ellipse at center, transparent 35%, ${backgroundColor || '#1a100a'} 100%)`,
+          opacity: 0.55,
         }}
       />
 

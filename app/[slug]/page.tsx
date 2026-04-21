@@ -10,6 +10,7 @@ import BaliDivider from '@/components/invitation/BaliDivider';
 import AnimateOnScroll from '@/components/invitation/AnimateOnScroll';
 import GalleryLightbox from '@/components/invitation/GalleryLightbox';
 import HeroSection from '@/components/invitation/HeroSection';
+import GiftSection from '@/components/invitation/GiftSection';
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -343,35 +344,11 @@ export default async function InvitationPage(props: PageProps) {
         <BaliDivider />
 
         {/* Gift Section */}
-        {(invitation.bankName || invitation.bankAccount) && (
-          <section className="py-16 px-4 overflow-hidden">
-            <AnimateOnScroll direction="up" className="max-w-3xl mx-auto text-center glass p-8 md:p-12 rounded-2xl shadow-xl border border-[var(--color-gold)]/20 bg-white">
-              <div className="w-16 h-16 mx-auto bg-yellow-50 rounded-full flex items-center justify-center mb-6">
-                <svg className="w-8 h-8 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-
-              <h2 className="text-3xl md:text-4xl font-playfair text-[var(--color-charcoal)] mb-4">Digital Gift</h2>
-              <p className="text-gray-600 mb-8 max-w-lg mx-auto text-sm leading-relaxed">
-                Doa Restu Anda merupakan karunia yang sangat berarti bagi kami.
-                Dan jika memberi adalah ungkapan tanda kasih Anda, Anda dapat memberi kado secara cashless.
-              </p>
-
-              <div className="bg-gray-50 border border-gray-200 rounded-xl p-6 inline-block min-w-[280px]">
-                <p className="text-lg font-bold text-gray-800 mb-2 uppercase tracking-wide">{invitation.bankName}</p>
-                <div className="flex items-center justify-center gap-3 mb-2">
-                  <p className="text-2xl font-mono text-[var(--color-gold)] tracking-wider">
-                    {invitation.bankAccount}
-                  </p>
-                </div>
-                <p className="text-sm text-gray-500 font-medium tracking-wide">
-                  a/n {invitation.bankAccountName}
-                </p>
-              </div>
-            </AnimateOnScroll>
-          </section>
-        )}
+        <GiftSection 
+          bankName={invitation.bankName} 
+          bankAccount={invitation.bankAccount} 
+          bankAccountName={invitation.bankAccountName} 
+        />
 
         {/* Gallery Section */}
         {galleryImages.length > 0 && (

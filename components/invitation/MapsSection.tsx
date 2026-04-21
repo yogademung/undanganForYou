@@ -44,9 +44,13 @@ export default function MapsSection({ address, mapUrl }: MapsSectionProps) {
           target="_blank" 
           rel="noopener noreferrer"
         >
-          <button className="px-6 py-3 border border-[var(--color-gold)] text-[var(--color-charcoal)] rounded-full hover:bg-[var(--color-gold)] hover:text-white transition-colors duration-300 font-inter font-medium text-sm tracking-wide">
+          <motion.button 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="px-6 py-3 border border-[var(--color-gold)] text-[var(--color-charcoal)] rounded-full hover:bg-[var(--color-gold)] hover:text-white transition-colors duration-300 font-inter font-medium text-sm tracking-wide shadow-sm hover:shadow-md"
+          >
             Buka Petunjuk Jalan
-          </button>
+          </motion.button>
         </a>
       )}
     </motion.div>
