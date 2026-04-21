@@ -231,16 +231,16 @@ export default function HeroSlideshow({
             <div className="relative flex items-center h-8 w-11 hover:scale-105 transition-transform cursor-pointer">
               <div className="absolute left-0 w-8 h-8 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 p-[1.5px] shadow-lg">
                 <div className="w-full h-full rounded-full bg-neutral-800 flex items-center justify-center overflow-hidden border border-black/10">
-                   <span className="text-[10px] font-bold text-white uppercase text-shadow-none">D</span>
+                  <span className="text-[10px] font-bold text-white uppercase text-shadow-none">D</span>
                 </div>
               </div>
               <div className="absolute left-4 w-8 h-8 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 p-[1.5px] shadow-lg border-2 border-black/10">
                 <div className="w-full h-full rounded-full bg-neutral-800 flex items-center justify-center overflow-hidden border border-black/10">
-                   <span className="text-[10px] font-bold text-white uppercase text-shadow-none">J</span>
+                  <span className="text-[10px] font-bold text-white uppercase text-shadow-none">J</span>
                 </div>
               </div>
             </div>
-            
+
             <div className="flex flex-col">
               <div className="flex items-center gap-1.5">
                 <span className="text-white text-[13px] font-semibold tracking-tight [text-shadow:0_1px_2.5px_rgba(0,0,0,0.6)] hover:underline cursor-pointer">
@@ -253,13 +253,13 @@ export default function HeroSlideshow({
                 </div>
               </div>
               <span className="text-white/90 text-[10.5px] font-medium [text-shadow:0_1px_1.5px_rgba(0,0,0,0.45)]">
-                Our Wedding • 12h
+                Our Wedding • Forever
               </span>
             </div>
           </div>
-          
+
           <div className="flex items-center gap-4">
-             <button className="p-1 opacity-90 transition-all hover:opacity-100 hover:scale-110 active:scale-95">
+            <button className="p-1 opacity-90 transition-all hover:opacity-100 hover:scale-110 active:scale-95">
               <svg viewBox="0 0 24 24" className="w-5 h-5 text-white filter drop-shadow-md" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
               </svg>
@@ -275,7 +275,7 @@ export default function HeroSlideshow({
 
       {/* Bottom UI: Swipe Up Indicator */}
       <div className="absolute bottom-12 left-0 right-0 px-4 z-40 flex justify-center items-center pointer-events-none">
-        <motion.div 
+        <motion.div
           className="flex flex-col items-center gap-1.5 pointer-events-auto cursor-pointer group"
           animate={{ y: [0, -10, 0] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
