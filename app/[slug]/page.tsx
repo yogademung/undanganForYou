@@ -11,6 +11,7 @@ import AnimateOnScroll from '@/components/invitation/AnimateOnScroll';
 import GalleryLightbox from '@/components/invitation/GalleryLightbox';
 import HeroSection from '@/components/invitation/HeroSection';
 import GiftSection from '@/components/invitation/GiftSection';
+import SaveDateButton from '@/components/invitation/SaveDateButton';
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -334,9 +335,15 @@ export default async function InvitationPage(props: PageProps) {
             </div>
 
             {/* Countdown */}
-            <div className="mb-4">
+            <div className="mb-4 flex flex-col items-center">
               <h3 className="text-xs font-inter text-[#d4a017]/70 mb-8 tracking-[0.4em] uppercase">Menghitung Mundur</h3>
               <Countdown targetDate={invitation.date} />
+              <SaveDateButton 
+                title={`Wedding of ${invitation.groomNickname} & ${invitation.brideNickname}`}
+                date={invitation.date}
+                location={invitation.eventLocation}
+                description={`Acara Pernikahan ${invitation.groomFullName} & ${invitation.brideFullName}`}
+              />
             </div>
           </AnimateOnScroll>
         </section>
