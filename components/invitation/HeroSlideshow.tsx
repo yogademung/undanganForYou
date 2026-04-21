@@ -191,25 +191,75 @@ export default function HeroSlideshow({
         />
       </AnimatePresence>
 
-      {/* Slide indicator dots (subtle) */}
-      {images.length > 1 && (
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-40 pointer-events-none">
-          {images.map((_, i) => (
-            <div
-              key={i}
-              className="rounded-full transition-all duration-700"
-              style={{
-                width: i === currentIndex ? '20px' : '6px',
-                height: '6px',
-                background: i === currentIndex
-                  ? 'rgba(212,160,23,0.9)'
-                  : 'rgba(255,255,255,0.35)',
-                boxShadow: i === currentIndex ? '0 0 8px rgba(212,160,23,0.7)' : 'none',
-              }}
-            />
-          ))}
+      {/* Slide indicators (Instagram Story style at top) */}
+      <div className="absolute top-5 left-0 right-0 px-4 z-40 space-y-3 pointer-events-none">
+        {images.length > 1 && (
+          <div className="flex gap-1.5">
+            {images.map((_, i) => (
+              <div
+                key={i}
+                className="flex-1 h-[2px] rounded-full transition-all duration-500"
+                style={{
+                  background: i === currentIndex
+                    ? 'rgba(255,255,255,1)'
+                    : 'rgba(255,255,255,0.35)',
+                }}
+              />
+            ))}
+          </div>
+        )}
+
+        {/* Instagram-style Story Header (Collaborative Post) */}
+        <div className="flex items-center justify-between pointer-events-auto">
+          <div className="flex items-center gap-2.5">
+            {/* Overlapping profile pictures (Collaborative Look) */}
+            <div className="relative flex items-center h-8 w-11">
+              {/* First Avatar */}
+              <div className="absolute left-0 w-8 h-8 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 p-[1.5px] shadow-lg">
+                <div className="w-full h-full rounded-full bg-neutral-800 flex items-center justify-center overflow-hidden border border-black/10">
+                   <span className="text-[10px] font-bold text-white uppercase">D</span>
+                </div>
+              </div>
+              {/* Second Avatar (Overlapping) */}
+              <div className="absolute left-4 w-8 h-8 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 p-[1.5px] shadow-lg border-2 border-black/10">
+                <div className="w-full h-full rounded-full bg-neutral-800 flex items-center justify-center overflow-hidden border border-black/10">
+                   <span className="text-[10px] font-bold text-white uppercase">J</span>
+                </div>
+              </div>
+            </div>
+            
+            <div className="flex flex-col">
+              <div className="flex items-center gap-1">
+                <span className="text-white text-[13px] font-semibold tracking-tight [text-shadow:0_1px_2px_rgba(0,0,0,0.5)]">
+                  darma_yyoga & jeniari123
+                </span>
+                {/* Verified badge style (Subtle) */}
+                <div className="w-3 h-3 bg-blue-500 rounded-full flex items-center justify-center">
+                  <svg viewBox="0 0 24 24" className="w-2 h-2 text-white fill-current">
+                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                  </svg>
+                </div>
+              </div>
+              <span className="text-white/85 text-[10px] font-medium [text-shadow:0_1px_1px_rgba(0,0,0,0.3)]">
+                Our Wedding • 12h
+              </span>
+            </div>
+          </div>
+          
+          <div className="flex items-center gap-3">
+             <button className="p-1 opacity-90 transition-opacity hover:opacity-100">
+              <svg viewBox="0 0 24 24" className="w-5 h-5 text-white" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
+              </svg>
+            </button>
+            <button className="p-1 opacity-90 transition-opacity hover:opacity-100">
+              <svg viewBox="0 0 24 24" className="w-5 h-5 text-white" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }
