@@ -159,12 +159,55 @@ export default async function InvitationPage(props: PageProps) {
           <div className="flex flex-col md:flex-row gap-16 items-center md:items-start justify-center mt-20">
             {/* Groom */}
             <AnimateOnScroll direction="left" className="text-center md:w-1/2 flex flex-col items-center">
-              <div className="w-56 h-56 rounded-full overflow-hidden mb-8 border-4 border-[var(--color-gold)]/20 shadow-2xl relative">
-                {groomImage ? (
-                  <img src={groomImage.url} alt="Groom" className="w-full h-full object-cover" />
-                ) : (
-                  <div className="w-full h-full bg-gray-200" />
-                )}
+              {/* Groom Photo Frame */}
+              <div className="relative mb-10 group">
+                <div className="absolute -inset-4 bg-[var(--color-gold)]/10 rounded-[2rem] blur-xl opacity-50 group-hover:opacity-75 transition-opacity" />
+                <div className="w-64 h-80 md:w-72 md:h-96 relative group">
+                  {/* Outer Glow */}
+                  <div className="absolute -inset-4 bg-[var(--color-gold)]/15 rounded-[2.5rem] blur-2xl opacity-40 group-hover:opacity-60 transition-opacity duration-700" />
+                  
+                  {/* Main Frame with Gradient Border */}
+                  <div className="relative w-full h-full p-[2px] rounded-2xl bg-gradient-to-br from-[#D4AF37] via-[#F3E5AB] to-[#B8860B] shadow-2xl z-10">
+                    <div className="w-full h-full bg-[#FAF9F6] rounded-[0.9rem] p-3 relative overflow-hidden">
+                      {/* Subtle Pattern Overlay */}
+                      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#D4AF37 0.5px, transparent 0.5px)', backgroundSize: '10px 10px' }} />
+                      
+                      <div className="w-full h-full rounded-lg overflow-hidden bg-gray-100 border border-[var(--color-gold)]/10 relative z-10">
+                        {groomImage ? (
+                          <img
+                            src={groomImage.url}
+                            alt="Groom"
+                            className="w-full h-full object-cover transform transition-transform duration-1000 group-hover:scale-110"
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-gray-200" />
+                        )}
+                      </div>
+                      
+                      {/* Elegant SVG Corner Ornaments */}
+                      {/* Top-Left */}
+                      <svg className="absolute top-1 left-1 w-10 h-10 text-[var(--color-gold)]/60 z-20" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2,18 V2 H18 M6,14 V6 H14 M10,10 V10" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
+                        <circle cx="2" cy="2" r="1.5" fill="currentColor"/>
+                      </svg>
+                      {/* Top-Right */}
+                      <svg className="absolute top-1 right-1 w-10 h-10 text-[var(--color-gold)]/60 z-20 rotate-90" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2,18 V2 H18 M6,14 V6 H14" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
+                        <circle cx="2" cy="2" r="1.5" fill="currentColor"/>
+                      </svg>
+                      {/* Bottom-Left */}
+                      <svg className="absolute bottom-1 left-1 w-10 h-10 text-[var(--color-gold)]/60 z-20 -rotate-90" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2,18 V2 H18 M6,14 V6 H14" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
+                        <circle cx="2" cy="2" r="1.5" fill="currentColor"/>
+                      </svg>
+                      {/* Bottom-Right */}
+                      <svg className="absolute bottom-1 right-1 w-10 h-10 text-[var(--color-gold)]/60 z-20 rotate-180" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2,18 V2 H18 M6,14 V6 H14" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
+                        <circle cx="2" cy="2" r="1.5" fill="currentColor"/>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
               </div>
               <h3 className="text-3xl font-playfair text-[var(--color-gold)] mb-3">{invitation.groomFullName}</h3>
               <div className="mt-2 text-gray-500 text-sm leading-relaxed">
@@ -176,12 +219,55 @@ export default async function InvitationPage(props: PageProps) {
 
             {/* Bride */}
             <AnimateOnScroll direction="right" className="text-center md:w-1/2 flex flex-col items-center">
-              <div className="w-56 h-56 rounded-full overflow-hidden mb-8 border-4 border-[var(--color-gold)]/20 shadow-2xl relative">
-                {brideImage ? (
-                  <img src={brideImage.url} alt="Bride" className="w-full h-full object-cover" />
-                ) : (
-                  <div className="w-full h-full bg-gray-200" />
-                )}
+              {/* Bride Photo Frame */}
+              <div className="relative mb-10 group">
+                <div className="absolute -inset-4 bg-[var(--color-gold)]/10 rounded-[2rem] blur-xl opacity-50 group-hover:opacity-75 transition-opacity" />
+                <div className="w-64 h-80 md:w-72 md:h-96 relative group">
+                  {/* Outer Glow */}
+                  <div className="absolute -inset-4 bg-[var(--color-gold)]/15 rounded-[2.5rem] blur-2xl opacity-40 group-hover:opacity-60 transition-opacity duration-700" />
+                  
+                  {/* Main Frame with Gradient Border */}
+                  <div className="relative w-full h-full p-[2px] rounded-2xl bg-gradient-to-br from-[#D4AF37] via-[#F3E5AB] to-[#B8860B] shadow-2xl z-10">
+                    <div className="w-full h-full bg-[#FAF9F6] rounded-[0.9rem] p-3 relative overflow-hidden">
+                      {/* Subtle Pattern Overlay */}
+                      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#D4AF37 0.5px, transparent 0.5px)', backgroundSize: '10px 10px' }} />
+                      
+                      <div className="w-full h-full rounded-lg overflow-hidden bg-gray-100 border border-[var(--color-gold)]/10 relative z-10">
+                        {brideImage ? (
+                          <img
+                            src={brideImage.url}
+                            alt="Bride"
+                            className="w-full h-full object-cover transform transition-transform duration-1000 group-hover:scale-110"
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-gray-200" />
+                        )}
+                      </div>
+                      
+                      {/* Elegant SVG Corner Ornaments */}
+                      {/* Top-Left */}
+                      <svg className="absolute top-1 left-1 w-10 h-10 text-[var(--color-gold)]/60 z-20" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2,18 V2 H18 M6,14 V6 H14 M10,10 V10" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
+                        <circle cx="2" cy="2" r="1.5" fill="currentColor"/>
+                      </svg>
+                      {/* Top-Right */}
+                      <svg className="absolute top-1 right-1 w-10 h-10 text-[var(--color-gold)]/60 z-20 rotate-90" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2,18 V2 H18 M6,14 V6 H14" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
+                        <circle cx="2" cy="2" r="1.5" fill="currentColor"/>
+                      </svg>
+                      {/* Bottom-Left */}
+                      <svg className="absolute bottom-1 left-1 w-10 h-10 text-[var(--color-gold)]/60 z-20 -rotate-90" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2,18 V2 H18 M6,14 V6 H14" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
+                        <circle cx="2" cy="2" r="1.5" fill="currentColor"/>
+                      </svg>
+                      {/* Bottom-Right */}
+                      <svg className="absolute bottom-1 right-1 w-10 h-10 text-[var(--color-gold)]/60 z-20 rotate-180" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2,18 V2 H18 M6,14 V6 H14" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
+                        <circle cx="2" cy="2" r="1.5" fill="currentColor"/>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
               </div>
               <h3 className="text-3xl font-playfair text-[var(--color-gold)] mb-3">{invitation.brideFullName}</h3>
               <div className="mt-2 text-gray-500 text-sm leading-relaxed">
